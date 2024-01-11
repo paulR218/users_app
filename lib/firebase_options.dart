@@ -50,19 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBMgXl69S6rty0QFhul0m-CLLnuHq3kb28',
-    appId: '1:758614943898:android:5aa871343eaf3c9905d723',
-    messagingSenderId: '758614943898',
-    projectId: 'thesis-2-a3a54',
-    storageBucket: 'thesis-2-a3a54.appspot.com',
+    apiKey: 'AIzaSyDjkmC-NlWZRmKqYttx8x-e_G29ZNFSLL4',
+    appId: '1:205456388687:android:9d64a00074c5edac88b03a',
+    messagingSenderId: '205456388687',
+    projectId: 'thesis2-207ad',
+    databaseURL: 'https://thesis2-207ad-default-rtdb.firebaseio.com',
+    storageBucket: 'thesis2-207ad.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAmA27fXk-4bPUjR4UjRyxQZMJcNFmsERQ',
-    appId: '1:758614943898:ios:12878c69812a241805d723',
-    messagingSenderId: '758614943898',
-    projectId: 'thesis-2-a3a54',
-    storageBucket: 'thesis-2-a3a54.appspot.com',
+    apiKey: 'AIzaSyDq-zdFAXzsw8bDJUjp9GRopVeuC3yTZUE',
+    appId: '1:205456388687:ios:219ca188ea54f82488b03a',
+    messagingSenderId: '205456388687',
+    projectId: 'thesis2-207ad',
+    databaseURL: 'https://thesis2-207ad-default-rtdb.firebaseio.com',
+    storageBucket: 'thesis2-207ad.appspot.com',
     iosBundleId: 'com.example.usersApp',
   );
 }

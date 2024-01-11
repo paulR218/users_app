@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "758614943898",
-    "firebase_url": "https://thesis-2-a3a54-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "thesis-2-a3a54",
-    "storage_bucket": "thesis-2-a3a54.appspot.com"
+    "project_number": "205456388687",
+    "firebase_url": "https://thesis2-207ad-default-rtdb.firebaseio.com",
+    "project_id": "thesis2-207ad",
+    "storage_bucket": "thesis2-207ad.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:758614943898:android:5aa871343eaf3c9905d723",
+        "mobilesdk_app_id": "1:205456388687:android:9d64a00074c5edac88b03a",
         "android_client_info": {
           "package_name": "com.thesis.usersapp"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBMgXl69S6rty0QFhul0m-CLLnuHq3kb28"
+          "current_key": "AIzaSyDjkmC-NlWZRmKqYttx8x-e_G29ZNFSLL4"
         }
       ],
       "services": {

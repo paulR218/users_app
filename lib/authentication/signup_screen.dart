@@ -186,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final User? userFirebase = (
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailTextEditingController.text.trim(),
-            password: passwordTextEditingController.text.trim()
+            password: passwordTextEditingController.text.trim(),
         ).catchError((errorMessage){
           cMethods.displaySnackbar(errorMessage.toString(), context);
         })
@@ -200,8 +200,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       "email" : emailTextEditingController.text.trim(),
       "phone" : phoneNumberTextEditingController.text.trim(),
       "id" : userFirebase.uid,
-      "blockStatus" : "no"
+      "blockStatus" : "no",
     };
+
     usersRef.set(userDataMap);
     Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
   }
