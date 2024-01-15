@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:users_app/authentication/login_screen.dart';
+import 'package:users_app/pages/search_destination_page.dart';
 
 import '../methods/common_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +27,8 @@ class _HomePageState extends State<HomePage> {
   Position? currentPositionOfUser;
   GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
   CommonMethods cMethods = CommonMethods();
+  double searchHeightContainer = 276;
+  double bottomMapPadding = 0;
 
 
   getCurrentLiveLocationOfUser() async {
@@ -164,9 +167,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: [
-          //google map
+          ///google map
           GoogleMap(
-            padding: const EdgeInsets.only(top: 25),
+            padding:  EdgeInsets.only(top: 25, bottom: bottomMapPadding),
             mapType: MapType.normal,
             myLocationEnabled: true,
             initialCameraPosition: googlePlexInitialPosition,
@@ -175,11 +178,17 @@ class _HomePageState extends State<HomePage> {
 
               googleMapCompleterController.complete(controllerGoogleMap);
 
+              setState(() {
+                bottomMapPadding = 140;
+              });
+
               getCurrentLiveLocationOfUser();
+
+
             },
           ),
 
-          //drawer button or menu button
+          ///drawer button or menu button
           Positioned(
             top: 36,
             left: 19,
@@ -214,6 +223,69 @@ class _HomePageState extends State<HomePage> {
 
             ),
           ),
+
+          ///search location icon button
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: -80,
+              child:  Container(
+                height: searchHeightContainer,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+
+                    ElevatedButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchDestinationPage()));
+                    },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(24),
+
+                      ),
+                     child: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: 25,
+                     ),
+                    ),
+
+                    ElevatedButton(onPressed: (){
+
+                    },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(24),
+
+                      ),
+                      child: const Icon(
+                        Icons.home,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                    ),
+
+                    ElevatedButton(onPressed: (){
+
+                    },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(24),
+
+                      ),
+                      child: const Icon(
+                        Icons.work,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                    ),
+
+                  ],
+                ),
+              ))
         ],
       ),
     );
