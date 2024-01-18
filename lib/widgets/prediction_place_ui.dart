@@ -38,7 +38,7 @@ class _PredictionPlaceUIState extends State<PredictionPlaceUI> {
                       Text(
                           widget.predictedPlaceData!.main_text.toString(),
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.black87,
                           ),
@@ -49,7 +49,7 @@ class _PredictionPlaceUIState extends State<PredictionPlaceUI> {
                       Text(
                         widget.predictedPlaceData!.secondary_text.toString(),
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12,
                           color: Colors.black54,
                         ),
