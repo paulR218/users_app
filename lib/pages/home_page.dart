@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:provider/provider.dart';
 import 'package:users_app/authentication/login_screen.dart';
 import 'package:users_app/pages/search_destination_page.dart';
 
+import '../appInfo/app_info.dart';
 import '../methods/common_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -237,9 +239,14 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
 
-                    ElevatedButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchDestinationPage()));
-                    },
+                    ElevatedButton(onPressed: () async {
+                      var responseFromSearchPage = await Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchDestinationPage()));
+
+                      if(responseFromSearchPage == "placeSelected"){
+                        String dropOffLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation!.placeName ?? "";
+                        print("dropOff Location" + dropOffLocation);
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.amber,
                         shape: const CircleBorder(),
