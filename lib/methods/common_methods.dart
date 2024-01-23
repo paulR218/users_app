@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:users_app/appInfo/app_info.dart';
 import 'package:users_app/global/global_var.dart';
 import 'package:http/http.dart' as http;
 import 'package:users_app/models/address_model.dart';
+
+import '../models/direction_details.dart';
 
 class CommonMethods{
   checkConnectivity(BuildContext context) async {
@@ -59,6 +62,27 @@ class CommonMethods{
     }
 
     return humanReadableAddress;
+  }
+
+  static Future<DirectionDetails?> getDirectionDetailsFromAPI(LatLng source, LatLng destination) async {
+    String urlDirectionAPI = "https://maps.googleapis.com/maps/api/directions/json?destination=${destination.latitude},${destination.longitude}&origin=${source.latitude},${source.longitude}&mode=driving&key=$googleMapKey";
+
+    var responseFromDirectionAPI = await sendRequestToAPI(urlDirectionAPI);
+
+    if(responseFromDirectionAPI == "error"){
+      return null ;
+    }
+
+    DirectionDetails detailsModel = DirectionDetails();
+    detailsModel.distanceTextString = responseFromDirectionAPI["routes"][0]["legs"][0]["distance"]["text"];
+    detailsModel.distanceValueDigits = responseFromDirectionAPI["routes"][0]["legs"][0]["distance"]["value"];
+
+    detailsModel.durationTextString = responseFromDirectionAPI["routes"][0]["legs"][0]["duration"]["text"];
+    detailsModel.durationValueDigits = responseFromDirectionAPI["routes"][0]["legs"][0]["duration"]["value"];
+
+    detailsModel.encodedPoints = responseFromDirectionAPI["routes"][0]["overview_polyline"]["points"];
+
+    return detailsModel;
   }
 
 }
