@@ -9,6 +9,7 @@ import 'package:users_app/methods/manage_drivers_methods.dart';
 import 'package:users_app/models/direction_details.dart';
 import 'package:users_app/models/online_nearby_drivers.dart';
 import 'package:users_app/pages/search_destination_page.dart';
+import 'package:users_app/widgets/info-dialog_box.dart';
 
 import '../appInfo/app_info.dart';
 import '../global/trip_var.dart';
@@ -51,6 +52,8 @@ class _HomePageState extends State<HomePage> {
   String stateOfApp = "normal";
   bool nearbyOnlineDriversKeysLoaded = false;
   BitmapDescriptor? carIconNearbyDriver;
+  DatabaseReference? tripRequestRef;
+  List<OnlineNearbyDrivers>? availableNearbyOnlineDriversList;
 
   makeDriverNearbyCarIcon(){
     if(carIconNearbyDriver == null){
@@ -91,6 +94,7 @@ class _HomePageState extends State<HomePage> {
         {
           setState(() {
             userName = (snap.snapshot.value as Map)["name"];
+            userPhone = (snap.snapshot.value as Map)["phone"];
           });
         }
         else
@@ -263,6 +267,7 @@ class _HomePageState extends State<HomePage> {
 
   cancelRideRequest(){
     //remove ride request from database
+    tripRequestRef!.remove();
     setState(() {
       stateOfApp = "normal";
     });
@@ -277,6 +282,7 @@ class _HomePageState extends State<HomePage> {
     });
 
     //send ride request
+    makeTripRequest();
   }
 
   updateAvailableOnlineDriversOnMap(){
@@ -343,7 +349,76 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  makeTripRequest(){
+    tripRequestRef = FirebaseDatabase.instance.ref().child("tripRequests").push();
 
+    var pickUpLocation = Provider.of<AppInfo>(context, listen: false).pickUpLocation;
+    var dropOffDestinationLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
+
+    Map pickUpCoordinatesMap = {
+      "latitude": pickUpLocation!.latitudePosition.toString(),
+      "longitude": pickUpLocation.longitudePosition.toString(),
+    };
+
+    Map dropOffDestinationCoordinatesMap = {
+      "latitude": dropOffDestinationLocation!.latitudePosition.toString(),
+      "longitude": dropOffDestinationLocation.longitudePosition.toString(),
+    };
+
+    Map driverCoordinates = {
+       "latitude":"",
+      "longitude":"",
+    };
+
+    Map dataMap = {
+      "tripID": tripRequestRef!.key,
+      "publishDateTime" : DateTime.now().toString(),
+      "userName" : userName,
+      "userPhone": userPhone,
+      "userID": userID,
+      "pickupLatLng": pickUpCoordinatesMap,
+      "dropOffLatLng": dropOffDestinationCoordinatesMap,
+      "pickupAddress": pickUpLocation.placeName,
+      "dropOffAddress": dropOffDestinationLocation.placeName,
+
+      "driverID":"waiting",
+      "carDetails" : "",
+      "driverLocation": driverCoordinates,
+      "driverName": "",
+      "driverPhone": "",
+      "driverPhoto": "",
+      "deliveryAmount": "",
+      "status": "new",
+    };
+
+    tripRequestRef!.set(dataMap);
+  }
+
+  noDriverAvailable(){
+    showDialog(
+        context: context,
+        barrierDismissible: false ,
+        builder: (BuildContext context) => InfoDialog(
+          title: "No Driver Available",
+          description: "No driver found in the nearby location. Please try again shortly.",
+        ));
+  }
+
+  searchDriver(){
+    if(availableNearbyOnlineDriversList!.length == 0){
+      cancelRideRequest();
+      resetAppNow();
+      noDriverAvailable();
+      return;
+    }
+
+    var currentDriver = availableNearbyOnlineDriversList![0];
+
+    //send notification to the current driver
+
+    availableNearbyOnlineDriversList!.removeAt(0);
+
+  }
 
   Widget build(BuildContext context) {
 
@@ -645,8 +720,10 @@ class _HomePageState extends State<HomePage> {
                                     displayRequestContainer();
 
                                     //get nearest available online driver
+                                    availableNearbyOnlineDriversList = ManageDriversMethod.nearbyOnlineDriversList;
 
-                                    //
+                                    //search driver
+                                    searchDriver();
                                   },
                                   child: Image.asset(
                                       "assets/images/uberexec.png",
