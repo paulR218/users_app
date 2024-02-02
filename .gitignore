@@ -27,3 +27,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/build/app/outputs/apk/debug/app-debug.apk
+/build/app/outputs/flutter-apk/app-debug.apk
+/build/app/intermediates/incremental/debug-mergeJavaRes/zip-cache/Jamm14DGLkOQLcc2yQWPKciDci8=
