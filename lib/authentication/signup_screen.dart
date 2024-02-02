@@ -189,8 +189,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             password: passwordTextEditingController.text.trim(),
         ).catchError((errorMessage){
           cMethods.displaySnackbar(errorMessage.toString(), context);
+          Navigator.pop(context);
         })
     ).user;
+
     if(!context.mounted) return;
     Navigator.pop(context);
 

@@ -4,4 +4,4 @@ String? phoneNumberDriver;
 int requestTimeoutDriver = 30;
 String status = '';
 String carDetailsDriver = '';
-String tripStatusDriver = 'Driver is Arriving';
+String tripStatusDisplay = 'Driver is Arriving';

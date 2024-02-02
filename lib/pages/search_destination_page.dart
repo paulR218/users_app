@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:users_app/global/global_var.dart';
 import 'package:users_app/methods/common_methods.dart';
 import 'package:users_app/models/prediction_model.dart';
 import 'package:users_app/widgets/prediction_place_ui.dart';
 
-import '../appInfo/app_info.dart';
 
 class SearchDestinationPage extends StatefulWidget {
   const SearchDestinationPage({super.key});
@@ -46,8 +44,8 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
 
   Widget build(BuildContext context) {
 
-    String userAddress = Provider.of<AppInfo>(context, listen: false).pickUpLocation!.humanReadableAddress ?? "";
-    pickupTextEditingController.text = userAddress;
+    //String userAddress = Provider.of<AppInfo>(context, listen: false).pickUpLocation!.humanReadableAddress ?? "";
+    //pickupTextEditingController.text = userAddress;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -115,6 +113,14 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
                               padding: const EdgeInsets.all(3),
                               child: TextField(
                                 controller: pickupTextEditingController,
+                                onTap: (){
+                                  setState(() {
+                                    pickupTextEditingController.clear();
+                                  });
+                                },
+                                onChanged: (inputText){
+                                  searchLocation(inputText);
+                                },
                                 decoration: const InputDecoration(
                                   hintText: "Pickup address",
                                   fillColor: Colors.white12,
@@ -165,8 +171,7 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
                           ),
                           ),
                         ],
-                      )
-
+                      ),
                     ],
                   ),
                 ),

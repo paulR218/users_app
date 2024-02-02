@@ -53,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             password: passwordTextEditingController.text.trim()
         ).catchError((errorMessage){
           cMethods.displaySnackbar(errorMessage.toString(), context);
+          Navigator.pop(context);
         })
     ).user;
 

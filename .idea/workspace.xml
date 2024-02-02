@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2c533c51-6b2e-4174-a7fd-90d8064718d2" name="Changes" comment="Get assigned driver info with about page">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="module" />
+    </option>
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4125285e-c45a-4166-8555-c6986c46cd88" />
+        <option name="url" value="https://github.com/paulR218/users_app.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="ProjectId" id="2aWSITsOxSbVio0GhcMz48nIz7b" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.android.tools.idea.streaming.zoom.toolbar.visible&quot;: &quot;false&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/paulr/AndroidStudioProjects/thesis_drivers_app_module&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\paulr\AndroidStudioProjects\users_app\android\app" />
+      <recent name="C:\Users\paulr\AndroidStudioProjects\users_app\assets\images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2c533c51-6b2e-4174-a7fd-90d8064718d2" name="Changes" comment="" />
+      <created>1704384953354</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1704384953354</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Login page and sign up page. Also connected to firebase">
+      <option name="closed" value="true" />
+      <created>1704443100587</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1704443100587</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Login page and sign up page. Also connected to firebase">
+      <option name="closed" value="true" />
+      <created>1704443319846</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704443319846</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Loading progress bar dialog during sign up">
+      <option name="closed" value="true" />
+      <created>1704443863603</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1704443863603</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Sign up with firebase authentication">
+      <option name="closed" value="true" />
+      <created>1704720859699</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1704720859699</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Login">
+      <option name="closed" value="true" />
+      <created>1704971570924</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1704971570924</updated>
+    </task>
+    <task id="LOCAL-00006" summary="With google map in homepage">
+      <option name="closed" value="true" />
+      <created>1704996911828</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1704996911828</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Get current user location and ask for permission to use location">
+      <option name="closed" value="true" />
+      <created>1705114531616</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705114531616</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Implement menu drawer and sign out feature">
+      <option name="closed" value="true" />
+      <created>1705316695310</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1705316695310</updated>
+    </task>
+    <task id="LOCAL-00009" summary="implement search, home, and work container at the bottom and search destination ui page">
+      <option name="closed" value="true" />
+      <created>1705318927481</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1705318927481</updated>
+    </task>
+    <task id="LOCAL-00010" summary="convert user geocoding address into human readable address, added an address model to handle the human readable address and implemented a sharing of user pick up location using provider advanced state management">
+      <option name="closed" value="true" />
+      <created>1705481189111</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1705481189111</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Place autocomplete search and display the predicted searches on an ui widget">
+      <option name="closed" value="true" />
+      <created>1705571719973</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1705571719973</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Place autocomplete search and display the predicted searches on an ui widget">
+      <option name="closed" value="true" />
+      <created>1705571779133</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1705571779133</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Get selected place details such as placeID, latitude, and longitude">
+      <option name="closed" value="true" />
+      <created>1705656611414</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1705656611414</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Get Trip details, Draw route from pickup to destination, reset the app and display the request container, and show the updated drivers position on the map with car markers">
+      <option name="closed" value="true" />
+      <created>1706008710655</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1706008710655</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Make a trip request and if no driver is available then show info dialog box that no driver is available">
+      <option name="closed" value="true" />
+      <created>1706182924494</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1706182924494</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Send notification to Nearest Online Drivers">
+      <option name="closed" value="true" />
+      <created>1706241325946</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1706241325946</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Get assigned driver info with about page">
+      <option name="closed" value="true" />
+      <created>1706847642304</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1706847642304</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Get assigned driver info with about page">
+      <option name="closed" value="true" />
+      <created>1706847924666</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1706847924666</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Get assigned driver info with about page">
+      <option name="closed" value="true" />
+      <created>1706850164592</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1706850164592</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Login page and sign up page. Also connected to firebase" />
+    <MESSAGE value="Loading progress bar dialog during sign up" />
+    <MESSAGE value="Sign up with firebase authentication" />
+    <MESSAGE value="Login" />
+    <MESSAGE value="With google map in homepage" />
+    <MESSAGE value="Get current user location and ask for permission to use location" />
+    <MESSAGE value="Implement menu drawer and sign out feature" />
+    <MESSAGE value="implement search, home, and work container at the bottom and search destination ui page" />
+    <MESSAGE value="convert user geocoding address into human readable address, added an address model to handle the human readable address and implemented a sharing of user pick up location using provider advanced state management" />
+    <MESSAGE value="Place autocomplete search and display the predicted searches on an ui widget" />
+    <MESSAGE value="Get selected place details such as placeID, latitude, and longitude" />
+    <MESSAGE value="Get Trip details, Draw route from pickup to destination, reset the app and display the request container, and show the updated drivers position on the map with car markers" />
+    <MESSAGE value="Make a trip request and if no driver is available then show info dialog box that no driver is available" />
+    <MESSAGE value="Send notification to Nearest Online Drivers" />
+    <MESSAGE value="Get assigned driver info with about page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Get assigned driver info with about page" />
+  </component>
+</project>
