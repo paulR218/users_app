@@ -269,7 +269,6 @@ class _HomePageState extends State<HomePage> {
       carDetailsDriver = "";
       tripStatusDisplay = "Driver is Arriving";
     });
-
   }
 
   cancelRideRequest(){
@@ -389,9 +388,9 @@ class _HomePageState extends State<HomePage> {
       "userName" : userName,
       "userPhone": userPhone,
       "userID": userID,
-      "pickupLatLng": pickUpCoordinatesMap,
+      "pickUpLatLng": pickUpCoordinatesMap,
       "dropOffLatLng": dropOffDestinationCoordinatesMap,
-      "pickupAddress": pickUpLocation.placeName,
+      "pickUpAddress": pickUpLocation.placeName,
       "dropOffAddress": dropOffDestinationLocation.placeName,
 
       "driverID":"waiting",
@@ -742,10 +741,7 @@ class _HomePageState extends State<HomePage> {
               setState(() {
                 bottomMapPadding = 140;
               });
-
               getCurrentLiveLocationOfUser();
-
-
             },
           ),
 
@@ -1002,6 +998,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: (){
                         resetAppNow();
                         cancelRideRequest();
+                        Restart.restartApp();
                       },
                       child: Container(
                         height: 50,
