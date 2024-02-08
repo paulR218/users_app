@@ -9,7 +9,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c533c51-6b2e-4174-a7fd-90d8064718d2" name="Changes" comment="Get assigned driver info with about page">
+    <list default="true" id="2c533c51-6b2e-4174-a7fd-90d8064718d2" name="Changes" comment="additional files">
+      <change afterPath="$PROJECT_DIR$/lib/pages/trip_history_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/d5c381d789c0520f082eb81620d40ea0/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/d5c381d789c0520f082eb81620d40ea0/.filecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/d5c381d789c0520f082eb81620d40ea0/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/d5c381d789c0520f082eb81620d40ea0/app.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/d5c381d789c0520f082eb81620d40ea0/debug_android_application.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/d5c381d789c0520f082eb81620d40ea0/debug_android_application.stamp" afterDir="false" />
@@ -18,17 +19,20 @@
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/d5c381d789c0520f082eb81620d40ea0/kernel_snapshot.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/d5c381d789c0520f082eb81620d40ea0/kernel_snapshot.stamp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/users_app_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/users_app_android.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/assets/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/assets/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/debug-mergeJavaRes/merge-state" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/cacheable/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/cacheable/last-build.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/local-state/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/kotlin/compileDebugKotlin/local-state/build-history.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk.sha1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/d0fba9d69bbb661a03572ff4dd941e4b.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/d0fba9d69bbb661a03572ff4dd941e4b.cache.dill.track.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/authentication/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/authentication/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/authentication/signup_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/authentication/signup_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/methods/manage_drivers_methods.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/methods/manage_drivers_methods.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/search_destination_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search_destination_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/prediction_place_ui.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/prediction_place_ui.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +70,9 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2aWSITsOxSbVio0GhcMz48nIz7b" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -88,6 +95,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
@@ -284,7 +292,23 @@
       <option name="project" value="LOCAL" />
       <updated>1706866969696</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="includes android folder and some files">
+      <option name="closed" value="true" />
+      <created>1706968764030</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1706968764030</updated>
+    </task>
+    <task id="LOCAL-00023" summary="additional files">
+      <option name="closed" value="true" />
+      <created>1706968964409</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1706968964409</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -326,6 +350,8 @@
     <MESSAGE value="Make a trip request and if no driver is available then show info dialog box that no driver is available" />
     <MESSAGE value="Send notification to Nearest Online Drivers" />
     <MESSAGE value="Get assigned driver info with about page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Get assigned driver info with about page" />
+    <MESSAGE value="includes android folder and some files" />
+    <MESSAGE value="additional files" />
+    <option name="LAST_COMMIT_MESSAGE" value="additional files" />
   </component>
 </project>

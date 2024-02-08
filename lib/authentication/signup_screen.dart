@@ -35,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             children: [
               Image.asset("assets/images/logo.png"),
-              const Text("Create a User\'s Account",
+              const Text("Create a User's Account",
                 style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextButton(
                   onPressed: ()
                   {
-                    Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
                   },
                   child: const Text(
                 "Already have an account? Login Here",
@@ -206,7 +206,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     };
 
     usersRef.set(userDataMap);
-    Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
+    Navigator.push(context, MaterialPageRoute(builder: (c) => const HomePage()));
   }
 
 

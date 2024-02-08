@@ -54,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ).catchError((errorMessage){
           cMethods.displaySnackbar(errorMessage.toString(), context);
           Navigator.pop(context);
+
         })
     ).user;
 
@@ -66,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if(snap.snapshot.value != null){
           if((snap.snapshot.value as Map)["blockStatus"] == "no"){
             userName = (snap.snapshot.value as Map)["name"];
-            Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (c) => const HomePage()));
           } else {
             FirebaseAuth.instance.signOut();
             cMethods.displaySnackbar("Your account is blocked. Contact admin", context);
@@ -159,10 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
               TextButton(
                 onPressed: ()
                 {
-                  Navigator.push(context, MaterialPageRoute(builder: (c) => SignUpScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (c) => const SignUpScreen()));
                 },
                 child: const Text(
-                  "Don\'t have an Account? Sign Up Here",
+                  "Don't have an Account? Sign Up Here",
                   style:  TextStyle(
                     color:Colors.black,
                   ),

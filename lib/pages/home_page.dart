@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_collection_literals, override_on_non_overriding_member
+
 import 'dart:async';
 
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -13,6 +15,7 @@ import 'package:users_app/models/direction_details.dart';
 import 'package:users_app/models/online_nearby_drivers.dart';
 import 'package:users_app/pages/about_page.dart';
 import 'package:users_app/pages/search_destination_page.dart';
+import 'package:users_app/pages/trip_history_page.dart';
 import 'package:users_app/widgets/info_dialog.dart';
 
 import '../appInfo/app_info.dart';
@@ -158,9 +161,9 @@ class _HomePageState extends State<HomePage> {
 
     polyLineCoordinates.clear();
     if(latLngPointsFromPickUpToDestination.isNotEmpty){
-      latLngPointsFromPickUpToDestination.forEach((PointLatLng latLngPoint) {
+      for (var latLngPoint in latLngPointsFromPickUpToDestination) {
         polyLineCoordinates.add(LatLng(latLngPoint.latitude, latLngPoint.longitude));
-      });
+      }
     }
 
     polyLineSet.clear();
@@ -303,7 +306,7 @@ class _HomePageState extends State<HomePage> {
       LatLng driverCurrentPosition = LatLng(eachOnlineNearbyDriver.latDriver!, eachOnlineNearbyDriver.lngDriver!);
 
       Marker driverMarker = Marker(
-          markerId: MarkerId("driver ID = " + eachOnlineNearbyDriver.uidDriver.toString()),
+          markerId: MarkerId("driver ID = ${eachOnlineNearbyDriver.uidDriver}"),
         position: driverCurrentPosition,
         icon: carIconNearbyDriver!,
       );
@@ -433,7 +436,7 @@ class _HomePageState extends State<HomePage> {
 
         if(status == "accepted"){
           //update information for pickup location  UI
-          //info for driver current locationon
+          //info for driver current location
           updateFromDriverCurrentLocationToPickUp(driverCurrentLocationLatLng);
         }
         else if(status ==  "arrived"){
@@ -445,7 +448,7 @@ class _HomePageState extends State<HomePage> {
 
         else if(status ==  "ontrip"){
           //update info for arrived - when driver reach at the pick up point of user
-          updateFromDriverCurrentLocationToDropOffDestionation(driverCurrentLocationLatLng);
+          updateFromDriverCurrentLocationToDropOffDestination(driverCurrentLocationLatLng);
         }
 
       }
@@ -456,10 +459,10 @@ class _HomePageState extends State<HomePage> {
 
         Geofire.stopListener();
 
-        //remove drivers marker
+        /*//remove drivers marker
         setState(() {
           markerSet.removeWhere((element) => element.markerId.value.contains("driver"));
-        });
+        });*/
       }
 
       if(status == "ended"){
@@ -500,22 +503,22 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  updateFromDriverCurrentLocationToDropOffDestionation(driverCurrentLocationLatLng) async {
+  updateFromDriverCurrentLocationToDropOffDestination(driverCurrentLocationLatLng) async {
     if(!requestingDirectionDetailsInfo){
       requestingDirectionDetailsInfo = true;
 
       var dropOffLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
       var userDropOffLocationLatLng = LatLng(dropOffLocation!.latitudePosition!, dropOffLocation.longitudePosition!);
 
-      var pickUpLocationLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
+      //var pickUpLocationLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
 
-      var directionDetailsPickup = await CommonMethods.getDirectionDetailsFromAPI(driverCurrentLocationLatLng, pickUpLocationLatLng);
+      var directionDetailsDropOff = await CommonMethods.getDirectionDetailsFromAPI(driverCurrentLocationLatLng, userDropOffLocationLatLng);
 
-      if(directionDetailsPickup == null){
+      if(directionDetailsDropOff == null){
         return;
       }
       setState(() {
-        tripStatusDisplay = "Driver to dropOff Location - ${directionDetailsPickup.durationTextString}";
+        tripStatusDisplay = "Driver to dropOff Location - ${directionDetailsDropOff.durationTextString}";
 
       });
 
@@ -534,7 +537,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   searchDriver(){
-    if(availableNearbyOnlineDriversList!.length == 0){
+    if(availableNearbyOnlineDriversList!.isEmpty){
       cancelRideRequest();
       noDriverAvailable();
       resetAppNow();
@@ -686,14 +689,31 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10,),
 
               //body
+
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (c) => const TripsHistoryPage()));
+                  },
+                  child: ListTile(
+                    leading: IconButton(
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (c) => const TripsHistoryPage()));
+                        },
+                        icon: const Icon(Icons.history, color: Colors.indigo,)
+                    ),
+                    title: const Text("Trip History", style: TextStyle(color: Colors.indigo),),
+                  ),
+                ),
+
+
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (c) => AboutPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (c) => const AboutPage()));
                 },
                 child: ListTile(
                   leading: IconButton(
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (c) => AboutPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (c) => const AboutPage()));
                       },
                       icon: const Icon(Icons.info, color: Colors.indigo,)
                   ),
@@ -704,13 +724,13 @@ class _HomePageState extends State<HomePage> {
               GestureDetector(
                 onTap: (){
                   FirebaseAuth.instance.signOut();
-                  Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
                 },
                 child: ListTile(
                   leading: IconButton(
                       onPressed: (){
                         FirebaseAuth.instance.signOut();
-                        Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
                       },
                       icon: const Icon(Icons.logout, color: Colors.indigo,)
                   ),
@@ -791,6 +811,7 @@ class _HomePageState extends State<HomePage> {
               left: 0,
               right: 0,
               bottom: -80,
+              // ignore: sized_box_for_whitespace
               child:  Container(
                 height: searchHeightContainer,
                 child: Row(
@@ -1091,11 +1112,11 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             nameDriver,
-                            style: TextStyle(fontSize: 20, color: Colors.grey),
+                            style: const TextStyle(fontSize: 20, color: Colors.grey),
                           ),
                           Text(
                             carDetailsDriver,
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                            style: const TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                         ],
                       )

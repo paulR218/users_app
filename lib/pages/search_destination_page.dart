@@ -16,7 +16,6 @@ class SearchDestinationPage extends StatefulWidget {
 }
 
 class _SearchDestinationPageState extends State<SearchDestinationPage> {
-  @override
 
   TextEditingController pickupTextEditingController = TextEditingController();
   TextEditingController destinationTextEditingController = TextEditingController();
@@ -39,12 +38,11 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
             dropOffPredictionsPlacesList = predictionsList;
           });
 
-          print("predictionResultInJson" + predictionResultInJson.toString());
-
         }
     }
   }
 
+  @override
   Widget build(BuildContext context) {
 
     String userAddress = Provider.of<AppInfo>(context, listen: false).pickUpLocation!.humanReadableAddress ?? "";
@@ -181,7 +179,7 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
               ),
             ),
             //display prediction results for destinations place
-            (dropOffPredictionsPlacesList.length > 0)
+            (dropOffPredictionsPlacesList.isNotEmpty)
                 ? Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: ListView.separated(
