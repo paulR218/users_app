@@ -65,8 +65,11 @@ class CommonMethods{
     return humanReadableAddress;
   }
 
+
+
+
   static Future<DirectionDetails?> getDirectionDetailsFromAPI(LatLng source, LatLng destination) async {
-    String urlDirectionAPI = "https://maps.googleapis.com/maps/api/directions/json?destination=${destination.latitude},${destination.longitude}&origin=${source.latitude},${source.longitude}&mode=driving&key=$googleMapKey";
+    String urlDirectionAPI = "https://maps.googleapis.com/maps/api/directions/json?destination=${destination.latitude},${destination.longitude}&origin=${source.latitude},${source.longitude}&mode=driving,&key=$googleMapKey";
 
     var responseFromDirectionAPI = await sendRequestToAPI(urlDirectionAPI);
 
@@ -78,9 +81,9 @@ class CommonMethods{
     detailsModel.distanceTextString = responseFromDirectionAPI["routes"][0]["legs"][0]["distance"]["text"];
     detailsModel.distanceValueDigits = responseFromDirectionAPI["routes"][0]["legs"][0]["distance"]["value"];
 
-    detailsModel.durationTextString = responseFromDirectionAPI["routes"][0]["legs"][0]["duration"]["text"];
     detailsModel.durationValueDigits = responseFromDirectionAPI["routes"][0]["legs"][0]["duration"]["value"];
 
+    detailsModel.durationTextString = responseFromDirectionAPI["routes"][0]["legs"][0]["duration"]["text"];
     detailsModel.encodedPoints = responseFromDirectionAPI["routes"][0]["overview_polyline"]["points"];
 
     return detailsModel;

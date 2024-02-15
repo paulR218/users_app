@@ -48,7 +48,7 @@ class _PredictionPlaceUIState extends State<PredictionPlaceUI> {
 
       Provider.of<AppInfo>(context, listen: false).updateDropOffLocation(dropOffLocation);
 
-      Navigator.pop(context, "placeSelected");
+      Navigator.pop(context, "Selected");
 
     }
   }

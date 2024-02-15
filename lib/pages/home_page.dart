@@ -17,6 +17,7 @@ import 'package:users_app/pages/about_page.dart';
 import 'package:users_app/pages/search_destination_page.dart';
 import 'package:users_app/pages/trip_history_page.dart';
 import 'package:users_app/widgets/info_dialog.dart';
+import 'package:users_app/pages/search_pickup_page.dart';
 
 import '../appInfo/app_info.dart';
 import '../global/trip_var.dart';
@@ -52,6 +53,7 @@ class _HomePageState extends State<HomePage> {
   double tripContainerHeight = 0;
   DirectionDetails? tripDirectionDetailsInfo;
   List<LatLng> polyLineCoordinates = [];
+  List<LatLng> waypointCoordinates =[const LatLng(14.56700000, 120.98300000), const LatLng(14.46666667, 121.01666667)];
   Set<Polyline> polyLineSet = {};
   Set<Marker> markerSet = {};
   Set<Circle> circleSet = {};
@@ -84,7 +86,7 @@ class _HomePageState extends State<HomePage> {
 
     controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
-    await CommonMethods.convertGeographicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
+   await CommonMethods.convertGeographicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
 
     await getUserInfoAndCheckBlockStatus();
 
@@ -118,7 +120,6 @@ class _HomePageState extends State<HomePage> {
         Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
       }
     });
-
   }
 
   displayUserRideDetailsContainer() async {
@@ -271,6 +272,7 @@ class _HomePageState extends State<HomePage> {
       phoneNumberDriver = "";
       carDetailsDriver = "";
       tripStatusDisplay = "Driver is Arriving";
+      dispatchStatus = "";
     });
   }
 
@@ -304,7 +306,6 @@ class _HomePageState extends State<HomePage> {
 
     for(OnlineNearbyDrivers eachOnlineNearbyDriver in ManageDriversMethod.nearbyOnlineDriversList){
       LatLng driverCurrentPosition = LatLng(eachOnlineNearbyDriver.latDriver!, eachOnlineNearbyDriver.lngDriver!);
-
       Marker driverMarker = Marker(
           markerId: MarkerId("driver ID = ${eachOnlineNearbyDriver.uidDriver}"),
         position: driverCurrentPosition,
@@ -404,6 +405,7 @@ class _HomePageState extends State<HomePage> {
       "driverPhoto": "",
       "deliveryAmount": "",
       "status": "new",
+      "dispatchStatus":"pending",
     };
 
     tripRequestRef!.set(dataMap);
@@ -428,6 +430,7 @@ class _HomePageState extends State<HomePage> {
       if((eventSnapshot.snapshot.value as Map)["status"] != null){
         status = (eventSnapshot.snapshot.value as Map)["status"];
       }
+
       if((eventSnapshot.snapshot.value as Map)["driverLocation"] != null){
 
         double driverLatitude = double.parse((eventSnapshot.snapshot.value as Map)["driverLocation"]["latitude"].toString());
@@ -466,11 +469,14 @@ class _HomePageState extends State<HomePage> {
       }
 
       if(status == "ended"){
-        if((eventSnapshot.snapshot.value as Map)["fareAmount"] != null){
-          double fareAmount= double.parse((eventSnapshot.snapshot.value as Map)["fareAmount"].toString());
-
-
-        }
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => InfoDialog(
+            title: "Ride Ended",
+            description: "Your ride has ended. Thank you for choosing us as your delivery partner.",
+          )
+        );
       }
     });
   }
@@ -596,7 +602,7 @@ class _HomePageState extends State<HomePage> {
           timer.cancel();
           currentDriverRef.set("cancelled");
           currentDriverRef.onDisconnect();
-          requestTimeoutDriver = 20;
+          requestTimeoutDriver = 120;
         }
 
         //when trip request is accepted by online driver
@@ -604,7 +610,7 @@ class _HomePageState extends State<HomePage> {
           if (dataSnapshot.snapshot.value.toString() == "accepted"){
             timer.cancel();
             currentDriverRef.onDisconnect();
-            requestTimeoutDriver = 20;
+            requestTimeoutDriver = 120;
 
           }
         });
@@ -614,7 +620,7 @@ class _HomePageState extends State<HomePage> {
           currentDriverRef.set("timed out");
           timer.cancel();
           currentDriverRef.onDisconnect();
-          requestTimeoutDriver = 20;
+          requestTimeoutDriver = 120;
 
           //send notification to the next driver
           searchDriver();
@@ -705,7 +711,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-
+              ///about page
               GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (c) => const AboutPage()));
@@ -755,9 +761,7 @@ class _HomePageState extends State<HomePage> {
             initialCameraPosition: googlePlexInitialPosition,
             onMapCreated: (GoogleMapController mapController){
               controllerGoogleMap = mapController;
-
               googleMapCompleterController.complete(controllerGoogleMap);
-
               setState(() {
                 bottomMapPadding = 140;
               });
@@ -819,11 +823,14 @@ class _HomePageState extends State<HomePage> {
                   children: [
 
                     ElevatedButton(onPressed: () async {
-                      var responseFromSearchPage = await Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchDestinationPage()));
+                      var responseFromSearchPage = await Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchPickupPage()));
 
-                      if(responseFromSearchPage == "placeSelected"){
+                      if(responseFromSearchPage == "pickUpSelected") {
+                        var responseFromDestinationPage = await Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchDestinationPage()));
+                        if (responseFromDestinationPage == "Selected") {
                           displayUserRideDetailsContainer();
                         }
+                      }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.amber,
@@ -1092,7 +1099,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ClipOval(
+                      /*ClipOval(
                         child: Image.network(
                           photoDriver == ''
                               ? ""
@@ -1101,7 +1108,7 @@ class _HomePageState extends State<HomePage> {
                           height: 60,
                           fit: BoxFit.cover,
                         ),
-                      ),
+                      ),*/
 
                       const SizedBox(width: 8,),
 

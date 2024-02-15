@@ -21,6 +21,7 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
   TextEditingController destinationTextEditingController = TextEditingController();
   List<PredictionModel> dropOffPredictionsPlacesList = [];
 
+
   ///Google Places API - Place autocomplete
   searchLocation(String locationName) async {
     if(locationName.length > 1){
@@ -37,7 +38,6 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
           setState(() {
             dropOffPredictionsPlacesList = predictionsList;
           });
-
         }
     }
   }
@@ -45,7 +45,7 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
   @override
   Widget build(BuildContext context) {
 
-    String userAddress = Provider.of<AppInfo>(context, listen: false).pickUpLocation!.humanReadableAddress ?? "";
+    String userAddress = Provider.of<AppInfo>(context, listen: true).pickUpLocation!.placeName ?? "";
     pickupTextEditingController.text = userAddress;
 
     return Scaffold(
@@ -114,14 +114,9 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
                               padding: const EdgeInsets.all(3),
                               child: TextField(
                                 controller: pickupTextEditingController,
-                               /* onTap: (){
-                                  setState(() {
-                                    pickupTextEditingController.clear();
-                                  });
-                                },
                                 onChanged: (inputText){
                                   searchLocation(inputText);
-                                },*/
+                                },
                                 decoration: const InputDecoration(
                                   hintText: "Pickup address",
                                   fillColor: Colors.white12,
@@ -136,7 +131,6 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 11,),
                       //destination
                       Row(
