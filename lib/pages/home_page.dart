@@ -477,6 +477,7 @@ class _HomePageState extends State<HomePage> {
             description: "Your ride has ended. Thank you for choosing us as your delivery partner.",
           )
         );
+        resetAppNow();
       }
     });
   }
@@ -493,7 +494,9 @@ class _HomePageState extends State<HomePage> {
     if(!requestingDirectionDetailsInfo){
       requestingDirectionDetailsInfo = true;
 
-      var pickUpLocationLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
+      var pickUpLocationLat = Provider.of<AppInfo>(context,listen: false).pickUpLocation?.latitudePosition!;
+      var pickUpLocationLng = Provider.of<AppInfo>(context,listen: false).pickUpLocation?.longitudePosition!;
+      var pickUpLocationLatLng = LatLng(pickUpLocationLat!, pickUpLocationLng!);
 
       var directionDetailsPickup = await CommonMethods.getDirectionDetailsFromAPI(driverCurrentLocationLatLng, pickUpLocationLatLng);
 
@@ -504,7 +507,6 @@ class _HomePageState extends State<HomePage> {
         tripStatusDisplay = "Driver is arriving - ${directionDetailsPickup.durationTextString}";
 
       });
-
       requestingDirectionDetailsInfo = false;
     }
   }
@@ -515,8 +517,6 @@ class _HomePageState extends State<HomePage> {
 
       var dropOffLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
       var userDropOffLocationLatLng = LatLng(dropOffLocation!.latitudePosition!, dropOffLocation.longitudePosition!);
-
-      //var pickUpLocationLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
 
       var directionDetailsDropOff = await CommonMethods.getDirectionDetailsFromAPI(driverCurrentLocationLatLng, userDropOffLocationLatLng);
 
