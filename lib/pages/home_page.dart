@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
 
     controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
-   await CommonMethods.convertGeographicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
+    await CommonMethods.convertGeographicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
 
     await getUserInfoAndCheckBlockStatus();
 
@@ -437,7 +437,7 @@ class _HomePageState extends State<HomePage> {
         double driverLongitude = double.parse((eventSnapshot.snapshot.value as Map)["driverLocation"]["longitude"].toString());
         LatLng driverCurrentLocationLatLng = LatLng(driverLatitude, driverLongitude);
 
-        if(status == "accepted"){
+        if(status == "accepted" || status == "acceptMore"){
           //update information for pickup location  UI
           //info for driver current location
           updateFromDriverCurrentLocationToPickUp(driverCurrentLocationLatLng);
@@ -457,6 +457,18 @@ class _HomePageState extends State<HomePage> {
       }
 
       if(status == "accepted"){
+
+        displayTripDetailsContainer();
+
+        Geofire.stopListener();
+
+        /*//remove drivers marker
+        setState(() {
+          markerSet.removeWhere((element) => element.markerId.value.contains("driver"));
+        });*/
+      }
+
+      if(status == "acceptMore"){
 
         displayTripDetailsContainer();
 
@@ -542,6 +554,16 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
+  dispatchRejected(){
+    showDialog(
+        context: context,
+        barrierDismissible: false ,
+        builder: (BuildContext context) => InfoDialog(
+          title: "Dispatch Rejected the trip",
+          description: "The dispatcher rejected this trip. Kindly contact the customer service for more information.",
+        ));
+  }
+
   searchDriver(){
     if(availableNearbyOnlineDriversList!.isEmpty){
       cancelRideRequest();
@@ -611,9 +633,17 @@ class _HomePageState extends State<HomePage> {
             timer.cancel();
             currentDriverRef.onDisconnect();
             requestTimeoutDriver = 120;
-
           }
         });
+
+        currentDriverRef.onValue.listen((dataSnapshot) {
+          if (dataSnapshot.snapshot.value.toString() == "acceptMore"){
+            timer.cancel();
+            currentDriverRef.onDisconnect();
+            requestTimeoutDriver = 120;
+          }
+        });
+
 
         //if 20 seconds passed
         if(requestTimeoutDriver == 0){
