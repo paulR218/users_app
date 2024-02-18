@@ -515,9 +515,9 @@ class _HomePageState extends State<HomePage> {
       if(directionDetailsPickup == null){
         return;
       }
+      getLiveLocationUpdatesOfDriver();
       setState(() {
         tripStatusDisplay = "Driver is arriving - ${directionDetailsPickup.durationTextString}";
-
       });
       requestingDirectionDetailsInfo = false;
     }
@@ -535,6 +535,7 @@ class _HomePageState extends State<HomePage> {
       if(directionDetailsDropOff == null){
         return;
       }
+      getLiveLocationUpdatesOfDriver();
       setState(() {
         tripStatusDisplay = "Driver to dropOff Location - ${directionDetailsDropOff.durationTextString}";
 
@@ -542,6 +543,31 @@ class _HomePageState extends State<HomePage> {
 
       requestingDirectionDetailsInfo = false;
     }
+  }
+
+  getLiveLocationUpdatesOfDriver()
+  {
+    positionStreamNewTripPage = Geolocator.getPositionStream().listen((Position positionDriver)
+    {
+      driverCurrentPosition = positionDriver;
+
+      LatLng driverCurrentPositionLatLng = LatLng(driverCurrentPosition!.latitude, driverCurrentPosition!.longitude);
+
+      Marker carMarker = Marker(
+        markerId: const MarkerId("carMarkerID"),
+        position: driverCurrentPositionLatLng,
+        icon: carIconNearbyDriver!,
+        infoWindow: const InfoWindow(title: "My Location"),
+      );
+
+      setState(() {
+        CameraPosition cameraPosition = CameraPosition(target: driverCurrentPositionLatLng, zoom: 16);
+        controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+        markerSet.removeWhere((element) => element.markerId.value == "carMarkerID");
+        markerSet.add(carMarker);
+      });
+    });
   }
 
   noDriverAvailable(){
