@@ -135,9 +135,9 @@ class _HomePageState extends State<HomePage> {
 
   retrieveDirectionDetails() async {
     var pickupLocation = Provider.of<AppInfo>(context,listen: false).pickUpLocation;
-    var dropOffDestinationLocation = Provider.of<AppInfo>(context,listen: false).dropOffLocation;
+    var dropOffDestinationLocation = "TBICAI, 56-B 4th Ave, Taguig, Metro Manila";
     var pickupGeoGraphicCoordinates = LatLng(pickupLocation!.latitudePosition!, pickupLocation.longitudePosition!);
-    var dropOffDestinationGeoGraphicCoordinates = LatLng(dropOffDestinationLocation!.latitudePosition!, dropOffDestinationLocation.longitudePosition!);
+    var dropOffDestinationGeoGraphicCoordinates = const LatLng(14.481952540896081, 121.05271356403014);
 
     showDialog(
       context: context,
@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
       markerId: const MarkerId("dropOffPointMarkerID"),
       position: dropOffDestinationGeoGraphicCoordinates,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
-      infoWindow: InfoWindow(title: dropOffDestinationLocation.placeName, snippet: "Destination Location"),
+      infoWindow: const InfoWindow(title: "Mega Pacific Freight Logistics, Inc.", snippet: "Destination Location"),
     );
 
     setState(() {
@@ -515,7 +515,7 @@ class _HomePageState extends State<HomePage> {
       if(directionDetailsPickup == null){
         return;
       }
-      getLiveLocationUpdatesOfDriver();
+      getLiveLocationUpdatesOfDriver(driverCurrentLocationLatLng);
       setState(() {
         tripStatusDisplay = "Driver is arriving - ${directionDetailsPickup.durationTextString}";
       });
@@ -527,17 +527,16 @@ class _HomePageState extends State<HomePage> {
     if(!requestingDirectionDetailsInfo){
       requestingDirectionDetailsInfo = true;
 
-      var dropOffLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
-      var userDropOffLocationLatLng = LatLng(dropOffLocation!.latitudePosition!, dropOffLocation.longitudePosition!);
+      var userDropOffLocationLatLng = const LatLng(14.4771909, 120.8553945);
 
       var directionDetailsDropOff = await CommonMethods.getDirectionDetailsFromAPI(driverCurrentLocationLatLng, userDropOffLocationLatLng);
 
       if(directionDetailsDropOff == null){
         return;
       }
-      getLiveLocationUpdatesOfDriver();
+      getLiveLocationUpdatesOfDriver(driverCurrentLocationLatLng);
       setState(() {
-        tripStatusDisplay = "Driver to dropOff Location - ${directionDetailsDropOff.durationTextString}";
+        tripStatusDisplay = "Driver to Warehouse - ${directionDetailsDropOff.durationTextString}";
 
       });
 
@@ -545,10 +544,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  getLiveLocationUpdatesOfDriver()
+  getLiveLocationUpdatesOfDriver(positionDriver)
   {
-    positionStreamNewTripPage = Geolocator.getPositionStream().listen((Position positionDriver)
-    {
+
       driverCurrentPosition = positionDriver;
 
       LatLng driverCurrentPositionLatLng = LatLng(driverCurrentPosition!.latitude, driverCurrentPosition!.longitude);
@@ -567,7 +565,7 @@ class _HomePageState extends State<HomePage> {
         markerSet.removeWhere((element) => element.markerId.value == "carMarkerID");
         markerSet.add(carMarker);
       });
-    });
+
   }
 
   noDriverAvailable(){
@@ -877,15 +875,10 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-
                     ElevatedButton(onPressed: () async {
                       var responseFromSearchPage = await Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchPickupPage()));
-
                       if(responseFromSearchPage == "pickUpSelected") {
-                        var responseFromDestinationPage = await Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchDestinationPage()));
-                        if (responseFromDestinationPage == "Selected") {
-                          displayUserRideDetailsContainer();
-                        }
+                        displayUserRideDetailsContainer();
                       }
                       },
                       style: ElevatedButton.styleFrom(
