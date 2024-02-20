@@ -45,6 +45,8 @@ class _SearchPickupPageState extends State<SearchPickupPage> {
 
   @override
   Widget build(BuildContext context) {
+    String destinationAddress = "Mega Pacific Freight Logistics, Inc.";
+    destinationTextEditingController.text = destinationAddress;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -147,9 +149,6 @@ class _SearchPickupPageState extends State<SearchPickupPage> {
                               padding: const EdgeInsets.all(3),
                               child: TextField(
                                 controller: destinationTextEditingController,
-                                onChanged: (inputText){
-                                  searchLocation(inputText);
-                                },
                                 decoration: const InputDecoration(
                                     hintText: "Destination address",
                                     fillColor: Colors.white12,

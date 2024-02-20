@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
   List<OnlineNearbyDrivers>? availableNearbyOnlineDriversList;
   StreamSubscription<DatabaseEvent>? tripStreamSubscription;
   bool requestingDirectionDetailsInfo = false;
+  LatLng? driverCurrentPosition;
 
   makeDriverNearbyCarIcon(){
     if(carIconNearbyDriver == null){
@@ -219,7 +220,7 @@ class _HomePageState extends State<HomePage> {
       markerId: const MarkerId("dropOffPointMarkerID"),
       position: dropOffDestinationGeoGraphicCoordinates,
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
-      infoWindow: InfoWindow(title: dropOffDestinationLocation.placeName, snippet: "Destination Location"),
+      infoWindow: const InfoWindow(title: "Mega Pacific Freight Logistics, Inc.", snippet: "Destination Location"),
     );
 
     setState(() {
@@ -368,6 +369,9 @@ class _HomePageState extends State<HomePage> {
   makeTripRequest(){
     tripRequestRef = FirebaseDatabase.instance.ref().child("tripRequests").push();
 
+    var dropOffLocationPlaceName = "Mega Pacific Freight Logistics, Inc.";
+    var dropOffLatLng = const LatLng(14.481952540896081, 121.05271356403014);
+
     var pickUpLocation = Provider.of<AppInfo>(context, listen: false).pickUpLocation;
     var dropOffDestinationLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
 
@@ -442,18 +446,17 @@ class _HomePageState extends State<HomePage> {
           //info for driver current location
           updateFromDriverCurrentLocationToPickUp(driverCurrentLocationLatLng);
         }
+
         else if(status ==  "arrived"){
           //update info for arrived - when driver reach at the pick up point of user
           setState(() {
             tripStatusDisplay = "Driver has arrived.";
           });
         }
-
         else if(status ==  "ontrip"){
           //update info for arrived - when driver reach at the pick up point of user
           updateFromDriverCurrentLocationToDropOffDestination(driverCurrentLocationLatLng);
         }
-
       }
 
       if(status == "accepted"){
@@ -515,7 +518,7 @@ class _HomePageState extends State<HomePage> {
       if(directionDetailsPickup == null){
         return;
       }
-      getLiveLocationUpdatesOfDriver();
+      getLiveLocationUpdatesOfDriver(driverCurrentLocationLatLng);
       setState(() {
         tripStatusDisplay = "Driver is arriving - ${directionDetailsPickup.durationTextString}";
       });
@@ -527,17 +530,18 @@ class _HomePageState extends State<HomePage> {
     if(!requestingDirectionDetailsInfo){
       requestingDirectionDetailsInfo = true;
 
-      var dropOffLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
-      var userDropOffLocationLatLng = LatLng(dropOffLocation!.latitudePosition!, dropOffLocation.longitudePosition!);
+      var userDropOffLocationLat = Provider.of<AppInfo>(context,listen: false).dropOffLocation?.latitudePosition!;
+      var userDropOffLocationLng = Provider.of<AppInfo>(context,listen: false).dropOffLocation?.longitudePosition!;
+      var userDropOffLocationLatLng = LatLng(userDropOffLocationLat!, userDropOffLocationLng!);
 
       var directionDetailsDropOff = await CommonMethods.getDirectionDetailsFromAPI(driverCurrentLocationLatLng, userDropOffLocationLatLng);
 
       if(directionDetailsDropOff == null){
         return;
       }
-      getLiveLocationUpdatesOfDriver();
+      getLiveLocationUpdatesOfDriver(driverCurrentLocationLatLng);
       setState(() {
-        tripStatusDisplay = "Driver to dropOff Location - ${directionDetailsDropOff.durationTextString}";
+        tripStatusDisplay = "Driver to Warehouse - ${directionDetailsDropOff.durationTextString}";
 
       });
 
@@ -545,10 +549,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  getLiveLocationUpdatesOfDriver()
+  getLiveLocationUpdatesOfDriver(LatLng positionDriver)
   {
-    positionStreamNewTripPage = Geolocator.getPositionStream().listen((Position positionDriver)
-    {
+
       driverCurrentPosition = positionDriver;
 
       LatLng driverCurrentPositionLatLng = LatLng(driverCurrentPosition!.latitude, driverCurrentPosition!.longitude);
@@ -567,7 +570,7 @@ class _HomePageState extends State<HomePage> {
         markerSet.removeWhere((element) => element.markerId.value == "carMarkerID");
         markerSet.add(carMarker);
       });
-    });
+
   }
 
   noDriverAvailable(){
@@ -877,15 +880,10 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-
                     ElevatedButton(onPressed: () async {
                       var responseFromSearchPage = await Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchPickupPage()));
-
                       if(responseFromSearchPage == "pickUpSelected") {
-                        var responseFromDestinationPage = await Navigator.push(context, MaterialPageRoute(builder: (c) => const SearchDestinationPage()));
-                        if (responseFromDestinationPage == "Selected") {
-                          displayUserRideDetailsContainer();
-                        }
+                        displayUserRideDetailsContainer();
                       }
                       },
                       style: ElevatedButton.styleFrom(

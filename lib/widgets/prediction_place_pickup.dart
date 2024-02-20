@@ -40,13 +40,22 @@ class _PredictionPlacePickUpState extends State<PredictionPlacePickUp> {
 
     if(responseFromDetailsPlaceAPI["status"] == "OK"){
       AddressModel pickUpLocation = AddressModel();
+      AddressModel dropOffLocation = AddressModel();
 
       pickUpLocation.placeName = responseFromDetailsPlaceAPI["result"]["name"];
       pickUpLocation.latitudePosition= responseFromDetailsPlaceAPI["result"]["geometry"]["location"]["lat"];
       pickUpLocation.longitudePosition= responseFromDetailsPlaceAPI["result"]["geometry"]["location"]["lng"];
       pickUpLocation.placeID= placeID;
 
+      dropOffLocation.placeName = "Mega Pacific Freight Logistics, Inc.";
+      dropOffLocation.latitudePosition = 14.481952540896081;
+      dropOffLocation.longitudePosition = 121.05271356403014;
+      dropOffLocation.placeID = "ChIJSyzcqjTPlzMRwKkQxkUfrXQ";
+
+      Provider.of<AppInfo>(context, listen: false).updateDropOffLocation(dropOffLocation);
       Provider.of<AppInfo>(context, listen: false).updatePickUpLocation(pickUpLocation);
+
+
 
       Navigator.pop(context, "pickUpSelected");
 
