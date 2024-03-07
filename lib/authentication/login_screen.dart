@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.all(30),
           child: Column(
             children: [
-              Image.asset("assets/images/logo(old).png"),
+              Image.asset("assets/images/logo.png"),
               const Text("Login as a User",
                 style: TextStyle(
                     fontSize: 26,

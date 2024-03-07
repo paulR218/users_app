@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             userName = (snap.snapshot.value as Map)["name"];
             userPhone = (snap.snapshot.value as Map)["phone"];
+            userEmail = (snap.snapshot.value as Map)["email"];
           });
         }
         else
@@ -322,7 +323,7 @@ class _HomePageState extends State<HomePage> {
 
   initializeGeoFireListener(){
     Geofire.initialize("onlineDrivers");
-    Geofire.queryAtLocation(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude, 22)!
+    Geofire.queryAtLocation(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude, 40)!
         .listen((driverEvent)
     {
       if(driverEvent != null){
@@ -369,9 +370,6 @@ class _HomePageState extends State<HomePage> {
   makeTripRequest(){
     tripRequestRef = FirebaseDatabase.instance.ref().child("tripRequests").push();
 
-    var dropOffLocationPlaceName = "Mega Pacific Freight Logistics, Inc.";
-    var dropOffLatLng = const LatLng(14.481952540896081, 121.05271356403014);
-
     var pickUpLocation = Provider.of<AppInfo>(context, listen: false).pickUpLocation;
     var dropOffDestinationLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
 
@@ -394,6 +392,7 @@ class _HomePageState extends State<HomePage> {
       "tripID": tripRequestRef!.key,
       "publishDateTime" : DateTime.now().toString(),
       "userName" : userName,
+      "userEmail" : userEmail,
       "userPhone": userPhone,
       "userID": userID,
       "pickUpLatLng": pickUpCoordinatesMap,
@@ -460,27 +459,13 @@ class _HomePageState extends State<HomePage> {
       }
 
       if(status == "accepted"){
-
         displayTripDetailsContainer();
-
         Geofire.stopListener();
-
-        /*//remove drivers marker
-        setState(() {
-          markerSet.removeWhere((element) => element.markerId.value.contains("driver"));
-        });*/
       }
 
       if(status == "acceptMore"){
-
         displayTripDetailsContainer();
-
         Geofire.stopListener();
-
-        /*//remove drivers marker
-        setState(() {
-          markerSet.removeWhere((element) => element.markerId.value.contains("driver"));
-        });*/
       }
 
       if(status == "ended"){
@@ -551,7 +536,6 @@ class _HomePageState extends State<HomePage> {
 
   getLiveLocationUpdatesOfDriver(LatLng positionDriver)
   {
-
       driverCurrentPosition = positionDriver;
 
       LatLng driverCurrentPositionLatLng = LatLng(driverCurrentPosition!.latitude, driverCurrentPosition!.longitude);
@@ -1003,7 +987,6 @@ class _HomePageState extends State<HomePage> {
                                     setState(() {
                                       stateOfApp = "requesting";
                                     });
-
                                     displayRequestContainer();
 
                                     //get nearest available online driver

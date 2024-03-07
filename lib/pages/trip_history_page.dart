@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 class TripsHistoryPage extends StatefulWidget {
   const TripsHistoryPage({super.key});
@@ -56,6 +57,9 @@ class _TripsHistoryPageState extends State<TripsHistoryPage> {
           Map dataTrips = snapshotData.data!.snapshot.value as Map;
           List tripsList = [];
           dataTrips.forEach((key, value) => tripsList.add({"key": key, ...value}));
+          log("tripsList : $tripsList");
+
+
 
           return ListView.builder(
             shrinkWrap: true,
@@ -63,7 +67,7 @@ class _TripsHistoryPageState extends State<TripsHistoryPage> {
             itemBuilder: ((context, index){
               if(tripsList[index]["status"] != null
                   && tripsList[index]["status"] == "ended"
-                  && tripsList[index]["driverID"] == FirebaseAuth.instance.currentUser!.uid)
+                  && tripsList[index]["userID"] == FirebaseAuth.instance.currentUser!.uid)
               {
                 return Card(
                   color: Colors.white12,

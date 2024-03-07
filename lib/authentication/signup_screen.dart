@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           padding: const EdgeInsets.all(30),
           child: Column(
             children: [
-              Image.asset("assets/images/logo(old).png"),
+              Image.asset("assets/images/logo.png"),
               const Text("Create a User's Account",
                 style: TextStyle(
                     fontSize: 26,
