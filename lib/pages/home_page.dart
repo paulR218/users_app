@@ -14,7 +14,6 @@ import 'package:users_app/methods/push_notification_service.dart';
 import 'package:users_app/models/direction_details.dart';
 import 'package:users_app/models/online_nearby_drivers.dart';
 import 'package:users_app/pages/about_page.dart';
-import 'package:users_app/pages/search_destination_page.dart';
 import 'package:users_app/pages/trip_history_page.dart';
 import 'package:users_app/widgets/info_dialog.dart';
 import 'package:users_app/pages/search_pickup_page.dart';
@@ -27,6 +26,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
+
 
 import '../global/global_var.dart';
 import '../widgets/loading_dialog.dart';
@@ -370,6 +371,8 @@ class _HomePageState extends State<HomePage> {
   makeTripRequest(){
     tripRequestRef = FirebaseDatabase.instance.ref().child("tripRequests").push();
 
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat("yyyy-MM-DD HH:mm:ss").format(now);
     var pickUpLocation = Provider.of<AppInfo>(context, listen: false).pickUpLocation;
     var dropOffDestinationLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
 
@@ -390,7 +393,7 @@ class _HomePageState extends State<HomePage> {
 
     Map dataMap = {
       "tripID": tripRequestRef!.key,
-      "publishDateTime" : DateTime.now().toString(),
+      "publishDateTime" : formattedDate,
       "userName" : userName,
       "userEmail" : userEmail,
       "userPhone": userPhone,
@@ -849,7 +852,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-
             ),
           ),
 
@@ -999,16 +1001,6 @@ class _HomePageState extends State<HomePage> {
                                       "assets/images/uberexec.png",
                                     height: 122,
                                     width: 122,
-                                  ),
-                                ),
-
-                                //estimated fare amount
-                                const Text(
-                                  "\$ 12",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white70,
-                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],

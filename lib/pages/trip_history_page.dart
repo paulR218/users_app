@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:users_app/models/trips_history_model.dart';
 import 'dart:developer';
+import 'trip_history_details.dart';
 
 class TripsHistoryPage extends StatefulWidget {
   const TripsHistoryPage({super.key});
@@ -12,7 +14,10 @@ class TripsHistoryPage extends StatefulWidget {
 
 class _TripsHistoryPageState extends State<TripsHistoryPage> {
 
-  final completedTripRequestsOfCurrentUser = FirebaseDatabase.instance.ref().child("tripRequests");
+  TripHistoryModel tripHistoryModel = TripHistoryModel();
+  String? pickUpPhotoUrl;
+  String? dropOffPhotoUrl;
+  final completedTripRequestsOfCurrentUser =  FirebaseDatabase.instance.ref().child("tripRequests");
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +62,7 @@ class _TripsHistoryPageState extends State<TripsHistoryPage> {
           Map dataTrips = snapshotData.data!.snapshot.value as Map;
           List tripsList = [];
           dataTrips.forEach((key, value) => tripsList.add({"key": key, ...value}));
-          log("tripsList : $tripsList");
-
-
+          //log("tripsList \n $tripsList");
 
           return ListView.builder(
             shrinkWrap: true,
@@ -69,52 +72,91 @@ class _TripsHistoryPageState extends State<TripsHistoryPage> {
                   && tripsList[index]["status"] == "ended"
                   && tripsList[index]["userID"] == FirebaseAuth.instance.currentUser!.uid)
               {
+                var tripID =  tripsList[index]["tripID"];
+                var driverName = tripsList[index]["driverName"];
+                var driverPhone = tripsList[index]["driverPhone"];
+                var date = tripsList[index]["publishDateTime"];
+                var pickUpAddress = tripsList[index]["pickUpAddress"];
+                try{
+                  pickUpPhotoUrl = tripsList[index]["pickUpPhoto"]["pickUpPhoto"];
+                  dropOffPhotoUrl = tripsList[index]["dropOffPhoto"]["dropOffPhoto"];
+                }catch(e){
+                  print(e);
+                }
                 return Card(
-                  color: Colors.white12,
+                  color: Colors.black,
                   elevation: 10,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Image.asset("assets/images/initial.png", height: 16, width: 16,),
-
-                            const SizedBox(width: 18,),
-
-                            Expanded(
-                                child: Text(
-                                  tripsList[index]["pickUpAddress"].toString(),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (c) => tripHistoryDetails
+                              (tripID: tripID, date: date, driverName: driverName, driverPhone: driverPhone,pickUpAddress: pickUpAddress ,
+                              pickUpPhoto: pickUpPhotoUrl,
+                              dropOffPhoto: dropOffPhotoUrl,)));
+                          },
+                          child: Column(
+                            children: [
+                                Row(
+                                children: [
+                                Text(
+                                tripsList[index]["publishDateTime"].toString(),
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white38
+                                      fontSize: 18,
+                                      color: Colors.white
                                   ),
                                 ),
+                              ],
                             ),
+                              const Divider(
+                                color: Colors.white,
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Image.asset("assets/images/initial.png", height: 16, width: 16,),
+
+                                  const SizedBox(width: 18,),
+
+                                  Expanded(
+                                    child: Text(
+                                      tripsList[index]["pickUpAddress"].toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              const SizedBox(height: 8,),
+
+                              Row(
+                                children: [
+                                  Image.asset("assets/images/final.png", height: 16, width: 16,),
+
+                                  const SizedBox(width: 18,),
+
+                                  Expanded(
+                                    child: Text(
+                                      tripsList[index]["dropOffAddress"].toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                            )
                           ],
                         ),
-
-                        const SizedBox(height: 8,),
-
-                        Row(
-                          children: [
-                            Image.asset("assets/images/final.png", height: 16, width: 16,),
-
-                            const SizedBox(width: 18,),
-
-                            Expanded(
-                              child: Text(
-                                tripsList[index]["dropOffAddress"].toString(),
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white38
-                                ),
-                              ),
-                            ),
-                          ],
                         )
                       ],
                     ),
